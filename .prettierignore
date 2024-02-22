@@ -1,0 +1,11 @@
+# Generated files
+composer.lock
+
+# Packages
+/examples/*/vendor
+/vendor
+/node_modules
+
+# Editors
+.idea
+.vscode

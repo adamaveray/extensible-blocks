@@ -1,0 +1,32 @@
+{
+  "name": "averay/extensible-blocks",
+  "description": "Utilities for building a library with complex view block extension logic.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Adam Averay",
+      "homepage": "https://adamaveray.au/"
+    }
+  ],
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Averay\\ExtensibleBlocks\\": "src/"
+    }
+  },
+  "scripts": {
+    "format": "composer run-script format:prettier",
+    "format:prettier": "bunx --bun prettier --write .",
+    "lint": "composer run-script lint:prettier && composer run-script lint:psalm",
+    "lint:prettier": "bunx --bun prettier --check .",
+    "lint:psalm": "vendor/bin/psalm"
+  },
+  "require": {
+    "php": ">=8.2",
+    "twig/twig": "^3.8"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "vimeo/psalm": "^5.22.1"
+  }
+}

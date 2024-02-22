@@ -1,0 +1,34 @@
+{%- block buttons -%}
+  <div class="buttons-set">
+    {{- "\n" -}}
+    {%- for button in buttons -%}
+      {{- button(button) -}}
+      {{- "\n" -}}
+    {%- endfor -%}
+  </div>
+{%- endblock buttons -%}
+
+{%- block button -%}
+  <div class="button">
+    {{- button_label(button) -}}
+  </div>
+{%- endblock button -%}
+
+{%- block link_button -%}
+  <a class="button" href="{{ url }}">
+    {{- block('button') -}}
+  </a>
+{%- endblock link_button -%}
+
+{%- block submit_button -%}
+  <button class="button" type="submit"
+    {%- if name is not empty %} name="{{ name }}" {%- endif -%}
+    {%- if value is not empty %} value="{{ value }}" {%- endif -%}
+  >
+    {{- block('button') -}}
+  </button>
+{%- endblock submit_button -%}
+
+{%- block button_label -%}
+  {{ label }}
+{%- endblock button_label -%}

@@ -1,0 +1,22 @@
+{
+  "autoload": {
+    "psr-4": {
+      "Acme\\ButtonKit\\": "./src"
+    }
+  },
+  "require": {
+    "php": ">=8.2",
+    "ext-json": "*",
+    "averay/extensible-blocks": "@dev",
+    "twig/twig": "^3.8"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../../"
+    }
+  ]
+}

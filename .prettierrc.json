@@ -1,0 +1,8 @@
+{
+  "arrowParens": "always",
+  "proseWrap": "never",
+  "singleQuote": true,
+  "trailingComma": "all",
+  "phpVersion": "8.2",
+  "plugins": ["@prettier/plugin-php", "@prettier/plugin-xml"]
+}
