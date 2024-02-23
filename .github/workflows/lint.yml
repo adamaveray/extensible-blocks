@@ -5,13 +5,61 @@ on:
   - push
   - pull_request
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
-      - name: Run Psalm
-        uses: docker://ghcr.io/psalm/psalm-github-actions
+    strategy:
+      matrix:
+        php-version: [8.2, 8.3]
+
+    env:
+      NODE_ENV: development
+
+    steps:
+      - uses: actions/checkout@v3
+        with: { fetch-depth: 0 }
+
+      - name: Use Bun ${{ matrix.bun-version }}
+        uses: oven-sh/setup-bun@v1
+
+      - name: Use PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring
+        env: { fail-fast: true }
+
+      - name: Cache NPM packages
+        uses: actions/cache@v3
+        env: { cache-name: npm }
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-test-${{ env.cache-name }}-
+            ${{ runner.os }}-test-
+            ${{ runner.os }}-
+
+      - name: Cache Composer packages
+        uses: actions/cache@v3
+        env: { cache-name: composer }
+        with:
+          path: vendor
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-test-${{ env.cache-name }}-
+            ${{ runner.os }}-test-
+            ${{ runner.os }}-
+
+      - name: Install NPM dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Install Composer dependencies
+        run: composer install --ignore-platform-reqs
+
+      - name: Lint code
+        run: composer run-script lint
