@@ -19,7 +19,7 @@
     "format:prettier": "bunx --bun prettier --write .",
     "lint": "composer run-script lint:prettier && composer run-script lint:psalm",
     "lint:prettier": "bunx --bun prettier --check .",
-    "lint:psalm": "vendor/bin/psalm"
+    "lint:psalm": "vendor/bin/psalm --no-cache"
   },
   "require": {
     "php": ">=8.2",
