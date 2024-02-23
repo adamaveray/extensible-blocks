@@ -20,7 +20,6 @@
     <directory name="src" />
     <ignoreFiles>
       <directory name="vendor" />
-      <directory name="examples/*/vendor" />
     </ignoreFiles>
   </projectFiles>
 
